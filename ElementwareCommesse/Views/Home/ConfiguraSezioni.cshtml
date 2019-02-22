@@ -1,0 +1,49 @@
+﻿@model ElementwareCommesse.Models.TAB_SEZ
+
+@{
+    ViewBag.Title = "ConfiguraSezioni";
+}
+
+<h2>ConfiguraSezioni</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TAB_SEZ</h4>
+        <hr />
+
+            <h4>ID sezione : @Model.IDSez</h4> 
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NomeSezione, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NomeSezione, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NomeSezione, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SottoTab, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.SottoTab)
+                    @Html.ValidationMessageFor(model => model.SottoTab, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <hr />
+    @Html.ActionLink("Configure column","GOConfColumn","Home")
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

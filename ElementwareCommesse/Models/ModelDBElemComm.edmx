@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBElementwareCommesseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TAB_COLONNE">
+          <Key>
+            <PropertyRef Name="IDSez" />
+            <PropertyRef Name="IDColonna" />
+          </Key>
+          <Property Name="IDSez" Type="int" Nullable="false" />
+          <Property Name="IDColonna" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAB_ROW">
+          <Key>
+            <PropertyRef Name="IDColonna" />
+            <PropertyRef Name="IDRow" />
+          </Key>
+          <Property Name="IDColonna" Type="int" Nullable="false" />
+          <Property Name="IDRow" Type="int" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="TAB_SEZ">
+          <Key>
+            <PropertyRef Name="IDSez" />
+          </Key>
+          <Property Name="IDSez" Type="int" Nullable="false" />
+          <Property Name="NomeSezione" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SottoTab" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TAB_COLONNE_ToTable">
+          <End Role="TAB_SEZ" Type="Self.TAB_SEZ" Multiplicity="1" />
+          <End Role="TAB_COLONNE" Type="Self.TAB_COLONNE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAB_SEZ">
+              <PropertyRef Name="IDSez" />
+            </Principal>
+            <Dependent Role="TAB_COLONNE">
+              <PropertyRef Name="IDSez" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBElementwareCommesseModelStoreContainer">
+          <EntitySet Name="TAB_COLONNE" EntityType="Self.TAB_COLONNE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAB_ROW" EntityType="Self.TAB_ROW" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAB_SEZ" EntityType="Self.TAB_SEZ" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TAB_COLONNE_ToTable" Association="Self.FK_TAB_COLONNE_ToTable">
+            <End Role="TAB_SEZ" EntitySet="TAB_SEZ" />
+            <End Role="TAB_COLONNE" EntitySet="TAB_COLONNE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBElementwareCommesseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TAB_COLONNE">
+          <Key>
+            <PropertyRef Name="IDSez" />
+            <PropertyRef Name="IDColonna" />
+          </Key>
+          <Property Name="IDSez" Type="Int32" Nullable="false" />
+          <Property Name="IDColonna" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TAB_SEZ" Relationship="Self.FK_TAB_COLONNE_ToTable" FromRole="TAB_COLONNE" ToRole="TAB_SEZ" />
+        </EntityType>
+        <EntityType Name="TAB_ROW">
+          <Key>
+            <PropertyRef Name="IDColonna" />
+            <PropertyRef Name="IDRow" />
+          </Key>
+          <Property Name="IDColonna" Type="Int32" Nullable="false" />
+          <Property Name="IDRow" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TAB_SEZ">
+          <Key>
+            <PropertyRef Name="IDSez" />
+          </Key>
+          <Property Name="IDSez" Type="Int32" Nullable="false" />
+          <Property Name="NomeSezione" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SottoTab" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TAB_COLONNE" Relationship="Self.FK_TAB_COLONNE_ToTable" FromRole="TAB_SEZ" ToRole="TAB_COLONNE" />
+        </EntityType>
+        <Association Name="FK_TAB_COLONNE_ToTable">
+          <End Role="TAB_SEZ" Type="Self.TAB_SEZ" Multiplicity="1" />
+          <End Role="TAB_COLONNE" Type="Self.TAB_COLONNE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAB_SEZ">
+              <PropertyRef Name="IDSez" />
+            </Principal>
+            <Dependent Role="TAB_COLONNE">
+              <PropertyRef Name="IDSez" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBElementwareCommesseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TAB_COLONNE" EntityType="Self.TAB_COLONNE" />
+          <EntitySet Name="TAB_ROW" EntityType="Self.TAB_ROW" />
+          <EntitySet Name="TAB_SEZ" EntityType="Self.TAB_SEZ" />
+          <AssociationSet Name="FK_TAB_COLONNE_ToTable" Association="Self.FK_TAB_COLONNE_ToTable">
+            <End Role="TAB_SEZ" EntitySet="TAB_SEZ" />
+            <End Role="TAB_COLONNE" EntitySet="TAB_COLONNE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBElementwareCommesseModelStoreContainer" CdmEntityContainer="DBElementwareCommesseEntities">
+          <EntitySetMapping Name="TAB_COLONNE">
+            <EntityTypeMapping TypeName="DBElementwareCommesseModel.TAB_COLONNE">
+              <MappingFragment StoreEntitySet="TAB_COLONNE">
+                <ScalarProperty Name="IDSez" ColumnName="IDSez" />
+                <ScalarProperty Name="IDColonna" ColumnName="IDColonna" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAB_ROW">
+            <EntityTypeMapping TypeName="DBElementwareCommesseModel.TAB_ROW">
+              <MappingFragment StoreEntitySet="TAB_ROW">
+                <ScalarProperty Name="IDColonna" ColumnName="IDColonna" />
+                <ScalarProperty Name="IDRow" ColumnName="IDRow" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAB_SEZ">
+            <EntityTypeMapping TypeName="DBElementwareCommesseModel.TAB_SEZ">
+              <MappingFragment StoreEntitySet="TAB_SEZ">
+                <ScalarProperty Name="IDSez" ColumnName="IDSez" />
+                <ScalarProperty Name="NomeSezione" ColumnName="NomeSezione" />
+                <ScalarProperty Name="SottoTab" ColumnName="SottoTab" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
