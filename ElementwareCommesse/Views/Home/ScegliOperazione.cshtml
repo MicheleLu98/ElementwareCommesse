@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "ScegliOperazione";
+}
+<head>
+    <style>
+        body {
+            background-color: #e0e0e0;
+            color: #213759;
+        }
+
+        .SezHead{
+            text-align:center;
+            padding:1%;
+            margin:auto;
+            display:block;
+            font-size:50px;
+        }
+        hr {
+            border-color: #213759;
+            margin:0.8%;
+        }
+
+        .SezionePickConfig {
+            display: inline-block;
+            margin: 0px;
+            width: 33%;
+            text-align: center;
+            padding-top: 150px;
+            padding-bottom: 150px;
+            margin-top: 35px;
+            margin-bottom: 35px;
+            border-left: 1px solid #213759;
+        }
+        main{
+            display:block;
+            margin:0px;
+            float:none;
+        }
+
+        .LinkAsBtn{
+            margin:15px;
+        }
+
+            .LinkAsBtn a {
+                text-decoration: none;
+                color: #213759;
+                padding: 5px 25px;
+                border: 1px solid #213759;
+                border-radius: 5%;
+                transition: background-color 0.5s,color 0.5s;
+            }
+
+            .LinkAsBtn a:hover {
+                text-decoration: none;
+                color: #213759;
+                background-color: #213759;
+                color: #e0e0e0;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="SezHead">
+            <div>
+                COMMESSE
+                <hr />
+            </div>
+            <div style="font-size:30px">
+                Scegli la modalità con cui andrai a fare la commessa
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="SezionePickConfig">
+            Crea una nuova configurazione
+            <div class="LinkAsBtn">
+                <a>GO</a>
+            </div>
+        </div>
+        <div class="SezionePickConfig">
+            Crea una Configurazione da modelli di sezioni
+            <div class="LinkAsBtn">
+                <a>GO</a>
+            </div>
+        </div>
+        <div style="border-right: 1px solid #213759;" class="SezionePickConfig">
+            Usa Configurazione esistente
+            <div class="LinkAsBtn">
+                <a>GO</a>
+            </div>
+        </div>
+    </main>
+</body>
+

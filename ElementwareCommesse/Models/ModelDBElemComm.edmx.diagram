@@ -4,11 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d9c7cc2efb1142bf9e7c08b9b2346b0e" Name="Diagram1">
-        <EntityTypeShape EntityType="DBElementwareCommesseModel.TAB_COLONNE" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBElementwareCommesseModel.TAB_ROW" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBElementwareCommesseModel.TAB_SEZ" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="fbaffe991793463da4167ecf95de8ec2" Name="Diagram1">
+        <EntityTypeShape EntityType="DBElementwareCommesseModel.TAB_COLONNE" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBElementwareCommesseModel.TAB_CONFIGURAZIONE" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBElementwareCommesseModel.TAB_CONFIGURAZIONE_SEZIONI" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBElementwareCommesseModel.TAB_ROW" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBElementwareCommesseModel.TAB_SEZ" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="DBElementwareCommesseModel.FK_TAB_COLONNE_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="DBElementwareCommesseModel.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="DBElementwareCommesseModel.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable_1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

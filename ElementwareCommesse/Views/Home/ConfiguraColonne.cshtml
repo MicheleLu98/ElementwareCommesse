@@ -1,0 +1,100 @@
+﻿@model ElementwareCommesse.Models.CombinedModel
+
+@{
+    ViewBag.Title = "ConfiguraColonne";
+}
+
+@using ElementwareCommesse.Models;
+@using System.Data.SqlClient;
+
+
+<h2>ConfiguraColonne</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>TAB_COLONNE</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SezModel.IDSez, "IDSez", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SezModel.IDSez, Model.ColonneModel.IDlist, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SezModel.IDSez, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ColonneModel.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ColonneModel.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ColonneModel.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ColonneModel.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ColonneModel.Tipo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ColonneModel.Tipo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<hr />
+Aggiungi alle configurazioni
+ @Html.ActionLink("Add","addConfig","Home")
+
+<hr />
+<div>
+    @{
+
+        DBElementwareCommesseEntities DB = new DBElementwareCommesseEntities();
+
+        var Table = DB.TAB_COLONNE;
+
+
+        var NidMax = from Col in Table
+                     select new { Col.IDSez };
+
+
+        IQueryable<TAB_COLONNE>[] listColonne = new IQueryable<TAB_COLONNE>[NidMax.Count()];
+
+        for (int i = 0; i < NidMax.Count(); i++)
+        {
+
+            var Query2 = from Col in Table
+                         select Col;
+
+            Query2 = Query2.Where(c => c.IDSez == i);
+            foreach (var ii in Query2)
+            {
+                <div>
+                    qua stampo i : @i<br />
+
+                    @ii.Nome<br />
+                    @ii.Tipo<br />
+                    Valore id sezione: <br />
+                    @ii.IDSez <br />
+                    @ii.IDColonna <br />
+                    <hr />
+
+                </div>
+            }
+        }
+
+    }
+
+
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

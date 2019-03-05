@@ -17,5 +17,6 @@ namespace ElementwareCommesse.Models
         public int IDColonna { get; set; }
         public int IDRow { get; set; }
         public string Value { get; set; }
+        public string IDSez { get; set; }
     }
 }

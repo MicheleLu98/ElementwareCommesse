@@ -1,0 +1,99 @@
+﻿@model ElementwareCommesse.Models.RowMODEL
+@using ElementwareCommesse.Models
+
+
+@{
+    ViewBag.Title = "CreteDOC";
+}
+
+<h2>CreteDOC</h2>
+
+@{
+                if (Session["IDConfigurazione"] == null)
+                {
+                    Session["IDConfigurazione"] = 0;
+                }
+
+                var DB = new DBElementwareCommesseEntities();
+                
+                foreach (var Sezione in DB.TAB_CONFIGURAZIONE_SEZIONI)
+                {
+                    if (int.Parse(Session["IDConfigurazione"].ToString()).Equals(Sezione.IDConfigurazione))
+                    {
+                        using (Html.BeginForm())
+                        {
+                <div>
+                    <div style="background-color:red;">
+                        <hr />
+                        <br />
+                        <p>Stai utilizzando la sezione n° : @Sezione.IDSez. <br /> @Sezione.NomeSezione</p>
+                        <p>Questi sono i campi delle sezioni</p>
+                    </div>
+                    <br />
+                    <br />
+                                @{
+                                    int i = 0;
+                                    foreach (var colonne in DB.TAB_SEZ)
+                                    {
+                                        if (colonne.SottoTab)
+                                        {
+
+                                            @*if (!DB.TAB_ROW.Count().Equals(0))
+                                            {
+                                                foreach (var ReadColonna in DB.TAB_ROW)
+                                                {
+                                                    <div style="display:inline-block;width:10%;margin:0px;">
+                                                        @ReadColonna.Value
+                                                    </div>
+                                                }
+                                            }*@
+                                            //inizio form
+                                            @Html.AntiForgeryToken()
+
+                                                //la sezione è una tabella
+                                                foreach (var colonnna in DB.TAB_COLONNE)
+                                                {
+                                                    if (colonnna.IDSez == colonne.IDSez)
+                                                    {   
+                                            <div style="width:11%;margin:10px;display:inline-block;">
+                                                <div class="form-horizontal">
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    <div class="form-group">                                       
+                                                        <label style="text-align:center;margin:0px;display:block;">@colonnna.Nome</label><br />
+                                                        <label  style="text-align:center;margin:0px;display:block;">@colonnna.Tipo <br /></label>
+                                                        <div class="col-md-10">
+                                                            @Html.EditorFor(model => model.FormSet[i].Value, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.FormSet[i].Value, "", new { @class = "text-danger" })
+
+                                                            @Html.HiddenFor(model => model.FormSet[i].IDColonna, new { Value = colonnna.IDColonna })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                                        i++;
+                                                    }
+
+                                                }
+
+                                        }
+                                        else
+                                        {
+                                            //la sezione è formata da campi, da lavoaraci tra un attimo
+                                        }
+                                    }
+
+                    }
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />        
+                    </div>
+                </div>
+            }
+        }
+    }
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

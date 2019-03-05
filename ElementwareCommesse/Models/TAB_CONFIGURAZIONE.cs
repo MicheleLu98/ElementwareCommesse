@@ -11,30 +11,20 @@ namespace ElementwareCommesse.Models
 {
     using System;
     using System.Collections.Generic;
-
-    public partial class TAB_SEZ
+    
+    public partial class TAB_CONFIGURAZIONE
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TAB_SEZ()
+        public TAB_CONFIGURAZIONE()
         {
-            this.TAB_COLONNE = new HashSet<TAB_COLONNE>();
             this.TAB_CONFIGURAZIONE_SEZIONI = new HashSet<TAB_CONFIGURAZIONE_SEZIONI>();
         }
-
-        public int IDSez { get; set; }
-        public string NomeSezione { get; set; }
-        public bool SottoTab { get; set; }
-
-        public bool IsChecked { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TAB_COLONNE> TAB_COLONNE { get; set; }
+    
+        public int IDConfigurazione { get; set; }
+        public string NomeConfigurazione { get; set; }
+        public string DescrizioneCofigurazione { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAB_CONFIGURAZIONE_SEZIONI> TAB_CONFIGURAZIONE_SEZIONI { get; set; }
-    }
-
-    public partial class SezioniModel
-    {
-        public List<TAB_SEZ> SEZs { get; set; }
     }
 }

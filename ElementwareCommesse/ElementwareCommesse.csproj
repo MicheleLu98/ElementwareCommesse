@@ -58,6 +58,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -154,6 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ColTab.cs" />
     <Compile Include="Models\ModelDBElemComm.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,7 +171,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelDBElemComm.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RowTab.cs" />
     <Compile Include="Models\TAB_COLONNE.cs">
+      <DependentUpon>ModelDBElemComm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TAB_CONFIGURAZIONE.cs">
+      <DependentUpon>ModelDBElemComm.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TAB_CONFIGURAZIONE_SEZIONI.cs">
       <DependentUpon>ModelDBElemComm.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TAB_ROW.cs">
@@ -193,8 +202,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\ModelDBElemComm.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelDBElemComm.Context.cs</LastGenOutput>
       <DependentUpon>ModelDBElemComm.edmx</DependentUpon>
+      <LastGenOutput>ModelDBElemComm.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\ModelDBElemComm.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -224,7 +233,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -239,6 +250,11 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ConfiguraSezioni.cshtml" />
+    <Content Include="Views\Home\ConfiguraColonne.cshtml" />
+    <Content Include="Views\Home\AggiungiConfig.cshtml" />
+    <Content Include="Views\Home\SelezionaSezioni.cshtml" />
+    <Content Include="Views\Home\CreteDOC.cshtml" />
+    <Content Include="Views\Home\ScegliOperazione.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

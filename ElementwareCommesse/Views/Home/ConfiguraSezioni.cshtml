@@ -1,21 +1,23 @@
 ﻿@model ElementwareCommesse.Models.TAB_SEZ
 
+
+@using ElementwareCommesse.Models;
 @{
     ViewBag.Title = "ConfiguraSezioni";
 }
 
 <h2>ConfiguraSezioni</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>TAB_SEZ</h4>
         <hr />
 
-            <h4>ID sezione : @Model.IDSez</h4> 
-
+        <h4>ID sezione : @Model.IDSez</h4
+>
         <div class="form-group">
             @Html.LabelFor(model => model.NomeSezione, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -41,8 +43,32 @@
         </div>
     </div>
     <hr />
-    @Html.ActionLink("Configure column","GOConfColumn","Home")
 }
+
+<div>
+    @Html.ActionLink("Avanti!!!", "SelezionaSezioni")
+    <p>
+        Modifcihe i valori attualmenti scritti nei campi non verranno salvate alla pressione del link
+    </p>
+</div>
+
+<div>
+    @{
+        DBElementwareCommesseEntities DB = new DBElementwareCommesseEntities();
+        foreach (var item in DB.TAB_SEZ)
+        {
+            <div>
+                <hr />
+                @item.IDSez <br />
+                @item.NomeSezione <br />
+                @item.SottoTab
+                <hr />
+            </div>
+        }    
+    }
+
+
+</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

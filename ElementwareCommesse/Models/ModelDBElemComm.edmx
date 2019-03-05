@@ -12,17 +12,36 @@
           </Key>
           <Property Name="IDSez" Type="int" Nullable="false" />
           <Property Name="IDColonna" Type="int" Nullable="false" />
-          <Property Name="Nome" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Tipo" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAB_CONFIGURAZIONE">
+          <Key>
+            <PropertyRef Name="IDConfigurazione" />
+          </Key>
+          <Property Name="IDConfigurazione" Type="int" Nullable="false" />
+          <Property Name="NomeConfigurazione" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DescrizioneCofigurazione" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TAB_CONFIGURAZIONE_SEZIONI">
+          <Key>
+            <PropertyRef Name="IDConfigurazione" />
+            <PropertyRef Name="IDSez" />
+          </Key>
+          <Property Name="IDConfigurazione" Type="int" Nullable="false" />
+          <Property Name="IDSez" Type="int" Nullable="false" />
+          <Property Name="NomeSezione" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TAB_ROW">
           <Key>
             <PropertyRef Name="IDColonna" />
             <PropertyRef Name="IDRow" />
+            <PropertyRef Name="IDSez" />
           </Key>
           <Property Name="IDColonna" Type="int" Nullable="false" />
           <Property Name="IDRow" Type="int" Nullable="false" />
           <Property Name="Value" Type="varchar" MaxLength="200" />
+          <Property Name="IDSez" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="TAB_SEZ">
           <Key>
@@ -44,13 +63,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable">
+          <End Role="TAB_CONFIGURAZIONE" Type="Self.TAB_CONFIGURAZIONE" Multiplicity="1" />
+          <End Role="TAB_CONFIGURAZIONE_SEZIONI" Type="Self.TAB_CONFIGURAZIONE_SEZIONI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAB_CONFIGURAZIONE">
+              <PropertyRef Name="IDConfigurazione" />
+            </Principal>
+            <Dependent Role="TAB_CONFIGURAZIONE_SEZIONI">
+              <PropertyRef Name="IDConfigurazione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable_1">
+          <End Role="TAB_SEZ" Type="Self.TAB_SEZ" Multiplicity="1" />
+          <End Role="TAB_CONFIGURAZIONE_SEZIONI" Type="Self.TAB_CONFIGURAZIONE_SEZIONI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAB_SEZ">
+              <PropertyRef Name="IDSez" />
+            </Principal>
+            <Dependent Role="TAB_CONFIGURAZIONE_SEZIONI">
+              <PropertyRef Name="IDSez" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBElementwareCommesseModelStoreContainer">
           <EntitySet Name="TAB_COLONNE" EntityType="Self.TAB_COLONNE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAB_CONFIGURAZIONE" EntityType="Self.TAB_CONFIGURAZIONE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAB_CONFIGURAZIONE_SEZIONI" EntityType="Self.TAB_CONFIGURAZIONE_SEZIONI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAB_ROW" EntityType="Self.TAB_ROW" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAB_SEZ" EntityType="Self.TAB_SEZ" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TAB_COLONNE_ToTable" Association="Self.FK_TAB_COLONNE_ToTable">
             <End Role="TAB_SEZ" EntitySet="TAB_SEZ" />
             <End Role="TAB_COLONNE" EntitySet="TAB_COLONNE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable" Association="Self.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable">
+            <End Role="TAB_CONFIGURAZIONE" EntitySet="TAB_CONFIGURAZIONE" />
+            <End Role="TAB_CONFIGURAZIONE_SEZIONI" EntitySet="TAB_CONFIGURAZIONE_SEZIONI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable_1" Association="Self.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable_1">
+            <End Role="TAB_SEZ" EntitySet="TAB_SEZ" />
+            <End Role="TAB_CONFIGURAZIONE_SEZIONI" EntitySet="TAB_CONFIGURAZIONE_SEZIONI" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -65,18 +118,40 @@
           </Key>
           <Property Name="IDSez" Type="Int32" Nullable="false" />
           <Property Name="IDColonna" Type="Int32" Nullable="false" />
-          <Property Name="Nome" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="TAB_SEZ" Relationship="Self.FK_TAB_COLONNE_ToTable" FromRole="TAB_COLONNE" ToRole="TAB_SEZ" />
+        </EntityType>
+        <EntityType Name="TAB_CONFIGURAZIONE">
+          <Key>
+            <PropertyRef Name="IDConfigurazione" />
+          </Key>
+          <Property Name="IDConfigurazione" Type="Int32" Nullable="false" />
+          <Property Name="NomeConfigurazione" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DescrizioneCofigurazione" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TAB_CONFIGURAZIONE_SEZIONI" Relationship="Self.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable" FromRole="TAB_CONFIGURAZIONE" ToRole="TAB_CONFIGURAZIONE_SEZIONI" />
+        </EntityType>
+        <EntityType Name="TAB_CONFIGURAZIONE_SEZIONI">
+          <Key>
+            <PropertyRef Name="IDConfigurazione" />
+            <PropertyRef Name="IDSez" />
+          </Key>
+          <Property Name="IDConfigurazione" Type="Int32" Nullable="false" />
+          <Property Name="IDSez" Type="Int32" Nullable="false" />
+          <Property Name="NomeSezione" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TAB_CONFIGURAZIONE" Relationship="Self.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable" FromRole="TAB_CONFIGURAZIONE_SEZIONI" ToRole="TAB_CONFIGURAZIONE" />
+          <NavigationProperty Name="TAB_SEZ" Relationship="Self.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable_1" FromRole="TAB_CONFIGURAZIONE_SEZIONI" ToRole="TAB_SEZ" />
         </EntityType>
         <EntityType Name="TAB_ROW">
           <Key>
             <PropertyRef Name="IDColonna" />
             <PropertyRef Name="IDRow" />
+            <PropertyRef Name="IDSez" />
           </Key>
           <Property Name="IDColonna" Type="Int32" Nullable="false" />
           <Property Name="IDRow" Type="Int32" Nullable="false" />
           <Property Name="Value" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IDSez" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="TAB_SEZ">
           <Key>
@@ -86,6 +161,7 @@
           <Property Name="NomeSezione" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SottoTab" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TAB_COLONNE" Relationship="Self.FK_TAB_COLONNE_ToTable" FromRole="TAB_SEZ" ToRole="TAB_COLONNE" />
+          <NavigationProperty Name="TAB_CONFIGURAZIONE_SEZIONI" Relationship="Self.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable_1" FromRole="TAB_SEZ" ToRole="TAB_CONFIGURAZIONE_SEZIONI" />
         </EntityType>
         <Association Name="FK_TAB_COLONNE_ToTable">
           <End Role="TAB_SEZ" Type="Self.TAB_SEZ" Multiplicity="1" />
@@ -99,13 +175,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable">
+          <End Role="TAB_CONFIGURAZIONE" Type="Self.TAB_CONFIGURAZIONE" Multiplicity="1" />
+          <End Role="TAB_CONFIGURAZIONE_SEZIONI" Type="Self.TAB_CONFIGURAZIONE_SEZIONI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAB_CONFIGURAZIONE">
+              <PropertyRef Name="IDConfigurazione" />
+            </Principal>
+            <Dependent Role="TAB_CONFIGURAZIONE_SEZIONI">
+              <PropertyRef Name="IDConfigurazione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable_1">
+          <End Role="TAB_SEZ" Type="Self.TAB_SEZ" Multiplicity="1" />
+          <End Role="TAB_CONFIGURAZIONE_SEZIONI" Type="Self.TAB_CONFIGURAZIONE_SEZIONI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAB_SEZ">
+              <PropertyRef Name="IDSez" />
+            </Principal>
+            <Dependent Role="TAB_CONFIGURAZIONE_SEZIONI">
+              <PropertyRef Name="IDSez" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBElementwareCommesseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TAB_COLONNE" EntityType="Self.TAB_COLONNE" />
+          <EntitySet Name="TAB_CONFIGURAZIONE" EntityType="Self.TAB_CONFIGURAZIONE" />
+          <EntitySet Name="TAB_CONFIGURAZIONE_SEZIONI" EntityType="Self.TAB_CONFIGURAZIONE_SEZIONI" />
           <EntitySet Name="TAB_ROW" EntityType="Self.TAB_ROW" />
           <EntitySet Name="TAB_SEZ" EntityType="Self.TAB_SEZ" />
           <AssociationSet Name="FK_TAB_COLONNE_ToTable" Association="Self.FK_TAB_COLONNE_ToTable">
             <End Role="TAB_SEZ" EntitySet="TAB_SEZ" />
             <End Role="TAB_COLONNE" EntitySet="TAB_COLONNE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable" Association="Self.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable">
+            <End Role="TAB_CONFIGURAZIONE" EntitySet="TAB_CONFIGURAZIONE" />
+            <End Role="TAB_CONFIGURAZIONE_SEZIONI" EntitySet="TAB_CONFIGURAZIONE_SEZIONI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable_1" Association="Self.FK_TAB_CONFIGURAZIONE_SEZIONI_ToTable_1">
+            <End Role="TAB_SEZ" EntitySet="TAB_SEZ" />
+            <End Role="TAB_CONFIGURAZIONE_SEZIONI" EntitySet="TAB_CONFIGURAZIONE_SEZIONI" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -124,12 +234,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TAB_CONFIGURAZIONE">
+            <EntityTypeMapping TypeName="DBElementwareCommesseModel.TAB_CONFIGURAZIONE">
+              <MappingFragment StoreEntitySet="TAB_CONFIGURAZIONE">
+                <ScalarProperty Name="IDConfigurazione" ColumnName="IDConfigurazione" />
+                <ScalarProperty Name="NomeConfigurazione" ColumnName="NomeConfigurazione" />
+                <ScalarProperty Name="DescrizioneCofigurazione" ColumnName="DescrizioneCofigurazione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAB_CONFIGURAZIONE_SEZIONI">
+            <EntityTypeMapping TypeName="DBElementwareCommesseModel.TAB_CONFIGURAZIONE_SEZIONI">
+              <MappingFragment StoreEntitySet="TAB_CONFIGURAZIONE_SEZIONI">
+                <ScalarProperty Name="IDConfigurazione" ColumnName="IDConfigurazione" />
+                <ScalarProperty Name="IDSez" ColumnName="IDSez" />
+                <ScalarProperty Name="NomeSezione" ColumnName="NomeSezione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TAB_ROW">
             <EntityTypeMapping TypeName="DBElementwareCommesseModel.TAB_ROW">
               <MappingFragment StoreEntitySet="TAB_ROW">
                 <ScalarProperty Name="IDColonna" ColumnName="IDColonna" />
                 <ScalarProperty Name="IDRow" ColumnName="IDRow" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="IDSez" ColumnName="IDSez" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

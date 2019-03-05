@@ -26,6 +26,8 @@ namespace ElementwareCommesse.Models
         }
     
         public virtual DbSet<TAB_COLONNE> TAB_COLONNE { get; set; }
+        public virtual DbSet<TAB_CONFIGURAZIONE> TAB_CONFIGURAZIONE { get; set; }
+        public virtual DbSet<TAB_CONFIGURAZIONE_SEZIONI> TAB_CONFIGURAZIONE_SEZIONI { get; set; }
         public virtual DbSet<TAB_ROW> TAB_ROW { get; set; }
         public virtual DbSet<TAB_SEZ> TAB_SEZ { get; set; }
     }

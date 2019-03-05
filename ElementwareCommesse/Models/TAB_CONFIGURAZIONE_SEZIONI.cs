@@ -11,23 +11,14 @@ namespace ElementwareCommesse.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
-
-    public partial class TAB_COLONNE
+    
+    public partial class TAB_CONFIGURAZIONE_SEZIONI
     {
+        public int IDConfigurazione { get; set; }
         public int IDSez { get; set; }
-        public int IDColonna { get; set; }
-        public string Nome { get; set; }
-        public string Tipo { get; set; }
-
-
+        public string NomeSezione { get; set; }
+    
+        public virtual TAB_CONFIGURAZIONE TAB_CONFIGURAZIONE { get; set; }
         public virtual TAB_SEZ TAB_SEZ { get; set; }
-    }
-
-
-    public class CombinedModel
-    {
-        public TAB_COLONNE ColonneModel { get; set; }
-        public TAB_SEZ SezModel { get; set; }
     }
 }
